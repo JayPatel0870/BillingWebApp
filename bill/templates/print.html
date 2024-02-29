@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+{% block content1 %}
+<h6>From:</h6>
+{% for o in owner %}
+<h4>{{ o.from_name }}</h4>
+<h5>{{o.from_address}}</h5>
+<h5>{{o.from_pin}}</h5>
+<h5>{{o.from_gst}}</h5>
+{% endfor %}
+{% endblock %}
+
+{% block content2 %}
+<h6>To:</h6>
+{% for c in customer %}
+<h4>{{ c.to_name }}</h4>
+<h5>{{c.to_address}}</h5>
+<h5>{{c.to_pin}}</h5>
+<h5>{{c.to_gst}}</h5>
+{% endfor %}
+{% endblock %}
+
+{% block content3 %}
+  <h4>Product Details</h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Weight</th>
+        <th>Rate</th>
+        <th>GST</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ product }}</td>
+        <td>{{ weight }}</td>
+        <td>{{ rate }}</td>
+        <td>{{ gst }}</td>
+        <td id="total_price"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- JavaScript to calculate total price -->
+  <script>
+    // Get weight, rate, and gst from the template
+    var weight = {{ weight }};
+    var rate = {{ rate }};
+    var gst = {{ gst }};
+
+    // Calculate total price
+    var totalPrice = weight * rate;
+    totalPrice = totalPrice * (1 + gst / 100);
+
+    // Display total price in the HTML
+    document.getElementById("total_price").textContent = totalPrice.toFixed(2); // Assuming you want to display the price with 2 decimal places
+  </script>
+{% endblock %}
+
+
+
